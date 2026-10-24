@@ -54,13 +54,20 @@ pnpm lint
 
 ---
 
-## 4. Phase P0 Demo Script
+## 4. Phase Demo Scripts
 
-1. Clone or navigate to the repository.
-2. Run `pnpm test` -> 8 acceptance tests pass across AT18, AT20, and AT22.
-3. Run `pnpm lint` -> Confirms zero banned phrases and complete claims discipline.
-4. Run `pnpm dev` and visit `http://localhost:3000`:
-   - Inspect the top banners:
-     - `MOCK MODE: Running with local mock adapters and zero external credentials.`
-     - `NOT COMPLIANT FOR PRODUCTION: Self-declared age assurance stub active.`
-   - Observe the warm paper design aesthetic, serif headings, and clean sans body text.
+### Phase P0: Scaffold & Compliance
+1. Run `pnpm test` -> Acceptance tests pass across AT18, AT20, and AT22.
+2. Run `pnpm lint` -> Confirms zero banned phrases and complete claims discipline.
+3. Run `pnpm dev` and visit `http://localhost:3000`:
+   - Inspect top banners: `MOCK MODE` and `NOT COMPLIANT FOR PRODUCTION`.
+
+### Phase P1: Database & RLS Isolation
+1. Inspect schema migrations in `/supabase/migrations/20261021000000_init_schema.sql` and `/supabase/seed.sql`.
+2. Run `pnpm seed:demo` -> Verifies seed data (1 cycle, 2 venues, 9 prompts, 1 host, 12 fake users, 2 pods).
+3. Run `pnpm test tests/p1-rls-letter-unlock.test.ts` -> Proves:
+   - **AT10**: Member profile isolation (only display names visible within the active pod; zero leak of phone/DOB/location).
+   - **AT6**: Write-to-unlock reciprocity (0 rows returned if reader hasn't submitted their own letter).
+   - **AT7**: Reveal time enforcement (letters unlock at 8:00 PM Asia/Kolkata, never earlier).
+   - **AT13 (preview)**: Block pairs cannot view each other's letters.
+
