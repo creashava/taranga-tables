@@ -1,0 +1,23 @@
+{
+  "landing": {
+    "headline": "Skip the scroll. Take a seat.",
+    "subline": "Six strangers. Four weeks. One table, again and again.",
+    "cta": "Start Onboarding"
+  },
+  "closing_screen": {
+    "message": "That's everything for today. Your next letter arrives at 8:00 pm tomorrow. See you at the table."
+  },
+  "checkin": {
+    "intro": "Three quick questions so we can look after everyone properly. This isn't a test, and we only keep a simple result, not your answers."
+  },
+  "stretch": {
+    "skip": "No problem. Maybe another time."
+  },
+  "withdraw": {
+    "confirmation": "Thank you for giving it a try. We'll let your host know so they can check in with you kindly. Your letters will be hidden from the pod."
+  },
+  "helpline": {
+    "tele_manas": "Tele-MANAS (14416) provides 24/7 free mental health support",
+    "emergency": "In an emergency, dial 112"
+  }
+}
