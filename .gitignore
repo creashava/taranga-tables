@@ -15,3 +15,5 @@ pnpm-debug.log*
 .env.development
 !.env.example
 *.tsbuildinfo
+
+.vercel
