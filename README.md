@@ -5,6 +5,7 @@
 
 This is a prototype web application built for running a four-week, two-pod pilot (two pods of six people, three tables each) in Mysuru to measure second-table attendance, show rates with/without a refundable deposit, felt safety, and offline connection hours.
 
+[![Taranga Tables CI](https://github.com/creashava/taranga-tables/actions/workflows/ci.yml/badge.svg)](https://github.com/creashava/taranga-tables/actions/workflows/ci.yml)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/creashava/taranga-tables)
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/creashava/taranga-tables)
 
