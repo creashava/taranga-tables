@@ -1,0 +1,47 @@
+name: Taranga Tables CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  verify:
+    name: Typecheck, Lint & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: TypeScript Type Check
+        run: pnpm typecheck
+
+      - name: Run Discipline Lints (AT18 & AT22)
+        run: pnpm lint
+
+      - name: Run 93 Acceptance Tests
+        run: pnpm test
+
+      - name: Production Next.js Build
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_MOCK_MODE: "true"
+          MOCK_MODE: "true"
+          APP_TIMEZONE: "Asia/Kolkata"
+          NEXT_PUBLIC_APP_TIMEZONE: "Asia/Kolkata"
