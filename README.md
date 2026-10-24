@@ -81,4 +81,18 @@ pnpm lint
    - Click "Begin Onboarding" -> navigates through M2 Sign-in, M3 6-step Stepper, M4 Consents, M5 Check-in, M6 Honest Waitlist.
    - Tap "Help & Report" floating button to view emergency 24/7 helplines (Tele-MANAS: 14416, Emergency: 112).
 
+### Phase P3: Host Console & Matching Algorithm (H1 - H3)
+1. Run `pnpm test tests/p3-matching-at5.test.ts` -> Proves:
+   - **AT5**: Women-only requesters are never placed in mixed pods.
+   - **AT5**: No mixed pod has exactly one woman.
+   - **AT5**: Blocked pairs are never placed together in the same pod.
+   - **AT5**: Every pod has between 5 and 7 members (default 6).
+   - Suggestions explain themselves with plain-language 'why these people' summary lines.
+   - Every pod approval and member removal writes to `audit_log`.
+2. In browser, visit `http://localhost:3000/host`:
+   - Inspect the H1 Waitlist pool and active pods.
+   - Click "Review Suggestions" -> inspect H2 suggested pods with soft scores and 'why these people' rationales.
+   - Click "Approve Pod" -> pod is confirmed into active wave.
+   - Visit `/host/pods/pod-a` -> view members and test host removal with audit log justification.
+
 

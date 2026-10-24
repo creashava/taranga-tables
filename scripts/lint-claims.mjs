@@ -22,7 +22,7 @@ const STAT_PATTERNS = [
   /\b\d+(\.\d+)?%/i,
   /\b\d+\s+percent\b/i,
   /\bHall\s+(2018|2019)\b/i,
-  /\bWHO\b/i,
+  /\bWHO\b/, // Case-sensitive: World Health Organization, not the pronoun 'who'
   /\bNIMHANS\b/i,
   /\bLive\s+Group\b/i,
   /\bGodard\b/i,
