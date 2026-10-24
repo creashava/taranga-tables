@@ -71,3 +71,14 @@ pnpm lint
    - **AT7**: Reveal time enforcement (letters unlock at 8:00 PM Asia/Kolkata, never earlier).
    - **AT13 (preview)**: Block pairs cannot view each other's letters.
 
+### Phase P2: Onboarding & Consents (M1 - M6)
+1. Run `pnpm test tests/p2-onboarding-at1-at4.test.ts` -> Proves:
+   - **AT1**: Under-18 declaration immediately rejects onboarding and stores nothing in database.
+   - **AT2**: Standalone consent toggles are unticked by default; withdrawing WhatsApp removes member from wa.me links.
+   - **AT3**: Check-in saves only triage band; raw question answers are discarded immediately and never logged.
+   - **AT4**: Elevated triage band shows supportive Tele-MANAS resources and holds member from matching.
+2. In browser, visit `http://localhost:3000`:
+   - Click "Begin Onboarding" -> navigates through M2 Sign-in, M3 6-step Stepper, M4 Consents, M5 Check-in, M6 Honest Waitlist.
+   - Tap "Help & Report" floating button to view emergency 24/7 helplines (Tele-MANAS: 14416, Emergency: 112).
+
+

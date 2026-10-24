@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { StatusBanners } from '@/components/StatusBanners';
+import { HelpReportButton } from '@/components/HelpReportButton';
 
 export const metadata: Metadata = {
   title: 'Taranga Tables - Six Strangers. Four Weeks. One Table.',
@@ -20,11 +21,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col bg-paper-50 text-paper-900 selection:bg-wave-100 selection:text-wave-900">
+      <body className="min-h-screen flex flex-col bg-paper-50 text-paper-900 selection:bg-wave-100 selection:text-wave-900 relative">
         <StatusBanners />
         <main className="flex-1 flex flex-col w-full max-w-md mx-auto min-h-[calc(100vh-60px)] px-4 py-6">
           {children}
         </main>
+        <HelpReportButton />
       </body>
     </html>
   );
