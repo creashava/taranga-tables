@@ -1,0 +1,52 @@
+{
+  "version": "1.0-draft",
+  "review_status": "TODO_CLINICAL_REVIEW",
+  "notice": "This check-in is a supportive check to help place members safely and thoughtfully. It is not a diagnostic tool or mental health evaluation.",
+  "items": [
+    {
+      "id": "q1",
+      "prompt": "How comfortable do you feel meeting new people in a small group setting?",
+      "options": [
+        { "value": 0, "label": "Very comfortable" },
+        { "value": 1, "label": "Somewhat comfortable" },
+        { "value": 2, "label": "A little nervous, but eager" },
+        { "value": 3, "label": "Significantly overwhelmed" }
+      ]
+    },
+    {
+      "id": "q2",
+      "prompt": "Over the past two weeks, how often have you felt able to engage in routine social activities?",
+      "options": [
+        { "value": 0, "label": "Most days" },
+        { "value": 1, "label": "Some days" },
+        { "value": 2, "label": "Occasionally" },
+        { "value": 3, "label": "Rarely or never" }
+      ]
+    },
+    {
+      "id": "q3",
+      "prompt": "Do you currently feel in a safe space to participate in weekly in-person group conversations?",
+      "options": [
+        { "value": 0, "label": "Yes, absolutely" },
+        { "value": 1, "label": "Mostly yes" },
+        { "value": 2, "label": "Unsure" },
+        { "value": 3, "label": "No / experiencing acute distress" }
+      ]
+    }
+  ],
+  "scoring": {
+    "note": "Scoring thresholds marked for TODO_CLINICAL_REVIEW. Raw answers must be discarded immediately.",
+    "bands": [
+      { "band": "none", "min_score": 0, "max_score": 3 },
+      { "band": "mild", "min_score": 4, "max_score": 6 },
+      { "band": "elevated", "min_score": 7, "max_score": 9 }
+    ]
+  },
+  "helpline_resources": {
+    "message": "Thanks for being honest. Before we place you in a group, one of our team would like to have a quick, friendly call. If you'd like to talk to someone right now, Tele-MANAS (14416) offers free support; in an emergency call 112.",
+    "numbers": [
+      { "name": "Tele-MANAS (Free national mental health helpline)", "contact": "14416" },
+      { "name": "National Emergency Helpline", "contact": "112" }
+    ]
+  }
+}

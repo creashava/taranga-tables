@@ -1,0 +1,37 @@
+{
+  "productName": "Taranga Tables",
+  "projectTagline": "A Taranga project",
+  "timezone": "Asia/Kolkata",
+  "bannedPhrases": [
+    "last chance",
+    "only x left",
+    "you're missing out",
+    "you are missing out",
+    "don't let them down",
+    "dont let them down",
+    "don't let your pod down",
+    "dont let your pod down",
+    "your streak",
+    "people are waiting",
+    "x people are waiting"
+  ],
+  "bannedClaimsKeywords": [
+    "oxytocin",
+    "dopamine",
+    "hormone",
+    "dopamine hijack",
+    "cure loneliness",
+    "therapy",
+    "therapeutic"
+  ],
+  "defaults": {
+    "podSize": 6,
+    "podSizeMin": 5,
+    "podSizeMax": 7,
+    "depositAmountInr": 200,
+    "tableCadence": "weekly",
+    "defaultLetterHour": 20,
+    "retentionDays": 90,
+    "minimumConfirmedTableRsvps": 4
+  }
+}

@@ -1,0 +1,86 @@
+[
+  {
+    "id": "PS-01",
+    "approved_wording": "About 1 in 6 people worldwide experience loneliness. WHO reports it is highest among adolescents and young adults (about 1 in 5) and in low-income countries (nearly 1 in 4).",
+    "source": "WHO Commission page opened. No Mysuru or India-specific figure exists.",
+    "status": "VERIFIED",
+    "internal_only": false
+  },
+  {
+    "id": "PS-02",
+    "approved_wording": "One study estimated roughly 40-60 hours together to become a casual friend, 80-100 hours to become a friend, and 200+ hours to become a close friend. These are rough estimates from US samples, self-reported and correlational.",
+    "source": "Hall 2018 via University of Kansas summary opened.",
+    "status": "VERIFIED",
+    "internal_only": false
+  },
+  {
+    "id": "PS-03",
+    "approved_wording": "In one analysis of 1,070+ events, mostly business events, paid events had a median no-show rate of about 17% against about 28% for free events.",
+    "source": "Skift and Live Group (secondary). Not a study of friendship meetups.",
+    "status": "VERIFIED as reported",
+    "internal_only": false
+  },
+  {
+    "id": "PS-04",
+    "approved_wording": "One company reported that a $100 refundable deposit raised attendance at its event from about 45% to about 90% (55 registrants).",
+    "source": "Skift. One small event; do not generalise.",
+    "status": "VERIFIED as reported",
+    "internal_only": false
+  },
+  {
+    "id": "PS-05",
+    "approved_wording": "A meta-analysis of 141 studies (about 145,000 people) found most links between active or passive social media use and wellbeing were negligible. Active use was linked to more perceived online support, and also to slightly more anxiety. Neither was clearly linked to offline support.",
+    "source": "Godard and Holtzman, J. Computer-Mediated Communication, 2024, opened. Mostly correlational.",
+    "status": "VERIFIED",
+    "internal_only": false
+  },
+  {
+    "id": "PS-06",
+    "approved_wording": "Under India's DPDP Act 2023, a child is anyone under 18; verifiable parental consent is required before processing a child's data (s9(1)); tracking or behavioural monitoring of children is prohibited (s9(3)).",
+    "source": "Act-text mirror (cadp.in). Check the Gazette copy before relying on it.",
+    "status": "VERIFIED",
+    "internal_only": false
+  },
+  {
+    "id": "PS-07",
+    "approved_wording": "DPDP penalties can reach up to ₹250 crore for failing security safeguards and up to ₹200 crore each for failing breach notification or children's obligations.",
+    "source": "Schedule in the same mirror. These are maximums, not typical fines.",
+    "status": "VERIFIED",
+    "internal_only": false
+  },
+  {
+    "id": "PS-08",
+    "approved_wording": "India's Central Consumer Protection Authority notified guidelines specifying 13 dark patterns. It issued notices to BookMyShow (pre-ticked donation) and IndiGo (guilt-wording on a button); both changed their designs after intervention.",
+    "source": "PIB press release opened. These were notices, not court rulings.",
+    "status": "VERIFIED",
+    "internal_only": false
+  },
+  {
+    "id": "PS-09",
+    "approved_wording": "A critical review of human research found the evidence that oxytocin increases trust is not robust.",
+    "source": "search results opened, full paper not.",
+    "status": "REPORTED at abstract level",
+    "internal_only": false
+  },
+  {
+    "id": "PS-10",
+    "approved_wording": "NIMHANS researchers reviewed 350 mental health apps and say India has no regulatory guidelines specific to such apps.",
+    "source": "news interview; primary paper not opened.",
+    "status": "REPORTED",
+    "internal_only": false
+  },
+  {
+    "id": "PS-11",
+    "approved_wording": "A published meta-analysis of if-then planning for alcohol consumption found a small overall effect and no clear effect when delivered online.",
+    "source": "meta-analysis. Different behaviour from meetup attendance, so it is a caution, not a prediction.",
+    "status": "VERIFIED at abstract level",
+    "internal_only": false
+  },
+  {
+    "id": "PS-12",
+    "approved_wording": "Timeleft reports 3M+ members, 200+ cities, 52 countries; pricing is not published; no-show fee can be up to 35% of a monthly subscription; tables reset weekly; it has a 'Repeat' feature.",
+    "source": "review written by a direct competitor, who discloses this. Company figures are self-reported and have varied between pages and dates.",
+    "status": "REPORTED",
+    "internal_only": true
+  }
+]
