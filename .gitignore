@@ -14,3 +14,4 @@ pnpm-debug.log*
 .env.production
 .env.development
 !.env.example
+*.tsbuildinfo

@@ -1,0 +1,53 @@
+services:
+  - type: web
+    name: taranga-tables
+    env: node
+    plan: starter
+    buildCommand: pnpm install && pnpm build
+    startCommand: pnpm start
+    healthCheckPath: /api/jobs/tick
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: APP_TIMEZONE
+        value: Asia/Kolkata
+      - key: NEXT_PUBLIC_APP_TIMEZONE
+        value: Asia/Kolkata
+      - key: MOCK_MODE
+        value: "true"
+      - key: NEXT_PUBLIC_MOCK_MODE
+        value: "true"
+      - key: PAYMENT_PROVIDER
+        value: mock
+      - key: AGE_PROVIDER
+        value: self_declared_stub
+      - key: NOTIFY_PROVIDER
+        value: console
+      - key: MODERATION_PROVIDER
+        value: keyword
+      - key: CRON_SECRET
+        generateValue: true
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+
+  - type: cron
+    name: taranga-hourly-tick
+    env: node
+    schedule: "0 * * * *"
+    buildCommand: pnpm install
+    startCommand: node scripts/trigger-tick.mjs
+    envVars:
+      - key: APP_URL
+        fromService:
+          type: web
+          name: taranga-tables
+          property: host
+      - key: CRON_SECRET
+        fromService:
+          type: web
+          name: taranga-tables
+          envVarKey: CRON_SECRET
