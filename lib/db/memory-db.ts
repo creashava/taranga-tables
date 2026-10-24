@@ -19,8 +19,21 @@ import {
   NotificationRecord,
   EventLogRecord,
   AuditLogRecord,
+  Appreciation,
+  ClosingChoice,
+  WaveFeedback,
+  HostTask,
+  Game,
+  Waypoint,
+  Bounty,
+  BountyJoin,
+  PassportStamp,
+  TarangaEvent,
+  EventInterest,
 } from './types';
 import { calculateRevealTime, isLetterUnlocked } from './time';
+
+export const LETTER_GAP_HOURS = 48; // Section 0 item 10 & D2
 
 export class MemoryDatabase {
   public profiles: Map<string, Profile> = new Map();
@@ -37,6 +50,17 @@ export class MemoryDatabase {
   public attendance: Attendance[] = [];
   public stretchChoices: Map<string, StretchChoice> = new Map();
   public podNotes: Map<string, PodNote> = new Map();
+  public appreciations: Map<string, Appreciation> = new Map();
+  public closingChoices: Map<string, ClosingChoice> = new Map();
+  public waveFeedback: Map<string, WaveFeedback> = new Map();
+  public hostTasks: Map<string, HostTask> = new Map();
+  public games: Map<string, Game> = new Map();
+  public waypoints: Map<string, Waypoint> = new Map();
+  public bounties: Map<string, Bounty> = new Map();
+  public bountyJoins: BountyJoin[] = [];
+  public passportStamps: PassportStamp[] = [];
+  public tarangaEvents: Map<string, TarangaEvent> = new Map();
+  public eventInterests: Map<string, EventInterest> = new Map();
   public blocks: Block[] = [];
   public safetyReports: Map<string, SafetyReport> = new Map();
   public feedback: Map<string, Feedback> = new Map();
@@ -66,6 +90,17 @@ export class MemoryDatabase {
     this.attendance = [];
     this.stretchChoices.clear();
     this.podNotes.clear();
+    this.appreciations.clear();
+    this.closingChoices.clear();
+    this.waveFeedback.clear();
+    this.hostTasks.clear();
+    this.games.clear();
+    this.waypoints.clear();
+    this.bounties.clear();
+    this.bountyJoins = [];
+    this.passportStamps = [];
+    this.tarangaEvents.clear();
+    this.eventInterests.clear();
     this.blocks = [];
     this.safetyReports.clear();
     this.feedback.clear();
@@ -180,6 +215,56 @@ export class MemoryDatabase {
       active: true,
     });
 
+    // 3b. v2.0 Prompts: Peeve, Pivot, Favourite, Seen (Section 8.8)
+    const peeves = [
+      'People who clap when the plane lands.',
+      'Group chats that explode at 2 am.',
+      'Slow Wi-Fi at a cafe that advertises Wi-Fi.',
+      'Meetings that could have been a message.',
+      'Songs that start at the wrong moment.',
+    ];
+    peeves.forEach((text, i) => {
+      this.prompts.set(`p-pv${i + 1}`, {
+        id: `p-pv${i + 1}`,
+        kind: 'peeve',
+        level: 1,
+        body_en: text,
+        active: true,
+      });
+    });
+
+    this.prompts.set('p-pvt', {
+      id: 'p-pvt',
+      kind: 'pivot',
+      level: 1,
+      body_en: 'What would the perfect version look like?',
+      active: true,
+    });
+
+    const favourites = [
+      'A snack you’d recommend from a Mysuru street stall.',
+      'A song you never skip.',
+      'A film you can watch again and again.',
+    ];
+    favourites.forEach((text, i) => {
+      this.prompts.set(`p-fv${i + 1}`, {
+        id: `p-fv${i + 1}`,
+        kind: 'favourite',
+        level: 1,
+        body_en: text,
+        active: true,
+      });
+    });
+
+    this.prompts.set('p-sn1', {
+      id: 'p-sn1',
+      kind: 'seen',
+      level: 1,
+      body_en: 'Say one specific thing someone did or said that you liked.',
+      body_kn: 'ಇನ್ನೊಬ್ಬ ವ್ಯಕ್ತಿ ಮಾಡಿದ ಅಥವಾ ಹೇಳಿದ ನಿಮಗೆ ಇಷ್ಟವಾದ ಒಂದು ನಿರ್ದಿಷ್ಟ ವಿಷಯವನ್ನು ತಿಳಿಸಿ.',
+      active: true,
+    });
+
     // 4. Host & Admin
     this.profiles.set('host-01', {
       id: 'host-01',
@@ -197,7 +282,23 @@ export class MemoryDatabase {
       created_at: new Date('2026-10-01').toISOString(),
     });
 
-    // 5. 12 Fake Members (Pod A & Pod B)
+    this.profiles.set('admin-01', {
+      id: 'admin-01',
+      display_name: 'Admin User',
+      role: 'admin',
+      status: 'completed',
+      is_18_plus: true,
+      age_method: 'self_declared_stub',
+      area: 'Gokulam',
+      letter_hour: 20,
+      wants_women_only: false,
+      languages: ['English', 'Kannada'],
+      interests: ['Community'],
+      availability: [{ dow: 6, part: 'evening' }],
+      created_at: new Date('2026-10-01').toISOString(),
+    });
+
+    // 5. 12 Fake Members (Pod A & Pod B) + Closing Persona
     const membersA = [
       { id: 'usr-a1', name: 'Aarav-Fake', area: 'Gokulam', interests: ['Coffee', 'Cycling', 'Books'], lang: ['English', 'Kannada'] },
       { id: 'usr-a2', name: 'Bhavana-Fake', area: 'Jayalakshmipuram', interests: ['Architecture', 'Art'], lang: ['English', 'Kannada'] },
@@ -216,7 +317,9 @@ export class MemoryDatabase {
       { id: 'usr-b6', name: 'Leela-Fake', area: 'VV Mohalla', interests: ['Cinema', 'History'], lang: ['English', 'Kannada'] },
     ];
 
-    [...membersA, ...membersB].forEach((m) => {
+    const closingMember = { id: 'usr-closing', name: 'Demo Priya', area: 'Gokulam', interests: ['Books', 'Tea'], lang: ['English', 'Kannada'] };
+
+    [...membersA, ...membersB, closingMember].forEach((m) => {
       this.profiles.set(m.id, {
         id: m.id,
         display_name: m.name,
@@ -281,6 +384,8 @@ export class MemoryDatabase {
       capacity: 6,
       arm: 'free',
       deposit_inr: 0,
+      opener_arm: 'peeve',
+      wave_start: '2026-11-01',
       host_id: 'host-01',
       default_venue_id: 'v-01',
       created_at: new Date('2026-10-18').toISOString(),
@@ -295,9 +400,28 @@ export class MemoryDatabase {
       capacity: 6,
       arm: 'deposit',
       deposit_inr: 200,
+      opener_arm: 'favourites',
+      wave_start: '2026-11-01',
       host_id: 'host-01',
       default_venue_id: 'v-02',
       created_at: new Date('2026-10-18').toISOString(),
+    });
+
+    // Closing Demo Pod (Section 8.8)
+    this.pods.set('pod-closing', {
+      id: 'pod-closing',
+      cycle_id: 'c-01',
+      name: 'Lalitha Wave (Closing Demo)',
+      status: 'closing',
+      women_only: false,
+      capacity: 6,
+      arm: 'free',
+      deposit_inr: 0,
+      opener_arm: 'peeve',
+      wave_start: '2026-09-26',
+      host_id: 'host-01',
+      default_venue_id: 'v-01',
+      created_at: new Date('2026-09-26').toISOString(),
     });
 
     // 7. Pod Members
@@ -315,6 +439,12 @@ export class MemoryDatabase {
         user_id: m.id,
         joined_at: new Date('2026-10-18').toISOString(),
       });
+    });
+
+    this.podMembers.push({
+      pod_id: 'pod-closing',
+      user_id: 'usr-closing',
+      joined_at: new Date('2026-09-26').toISOString(),
     });
 
     // 8. Meetups (Meetup 1, 2, 3)
@@ -372,6 +502,116 @@ export class MemoryDatabase {
       ends_at: '2026-11-22T19:00:00+05:30',
       venue_id: 'v-02',
       status: 'scheduled',
+    });
+
+    // 9. v2.0 Games (Section 8.8)
+    this.games.set('game-01', {
+      id: 'game-01',
+      name: 'Chowka Bhara',
+      region: 'South India',
+      players_min: 2,
+      players_max: 4,
+      rules_summary: 'Race tokens around a cross-shaped board using cowrie or dice throws; local house rules differ.',
+      source_note: 'Traditional Indian race game.',
+      verified: false,
+    });
+    this.games.set('game-02', {
+      id: 'game-02',
+      name: 'Aadu Huli Aata (Lambs and Tigers)',
+      region: 'Karnataka',
+      players_min: 2,
+      players_max: 2,
+      rules_summary: 'A few tigers try to capture many goats on a triangle-and-lines board; goats win by trapping the tigers.',
+      source_note: 'Ancient Karnataka asymmetric board game.',
+      verified: false,
+    });
+    this.games.set('game-03', {
+      id: 'game-03',
+      name: 'Alagulimane (Pallanguzhi family)',
+      region: 'Karnataka, Tamil Nadu',
+      players_min: 2,
+      players_max: 2,
+      rules_summary: 'Players sow seeds around two rows of pits and capture; counts and variants differ by home.',
+      source_note: 'Mancala variant common in South India.',
+      verified: false,
+    });
+    this.games.set('game-04', {
+      id: 'game-04',
+      name: 'Antakshari',
+      region: 'India',
+      players_min: 4,
+      players_max: 12,
+      rules_summary: 'Teams sing a song starting with the last letter of the previous song.',
+      source_note: 'Popular parlour singing game.',
+      verified: true,
+      verified_by: 'host-01',
+      verified_at: new Date('2026-10-20').toISOString(),
+    });
+
+    // 10. v2.0 Waypoints (Section 8.8, N17: public, staffed or host-attended, verified)
+    this.waypoints.set('wp-01', {
+      id: 'wp-01',
+      name: 'Devaraja Market',
+      area: 'Sayyaji Rao Road',
+      is_public: true,
+      staffed: true,
+      host_attended: true,
+      safety_notes: 'Public municipal market, bustling daytime activity, host meets group at north entrance.',
+      verified_by: 'host-01',
+      verified_at: new Date('2026-10-20').toISOString(),
+      active: true,
+    });
+    this.waypoints.set('wp-02', {
+      id: 'wp-02',
+      name: 'Kukkarahalli Lake Walkway',
+      area: 'Saraswathipuram',
+      is_public: true,
+      staffed: false,
+      host_attended: true,
+      safety_notes: 'University lake perimeter path, open daylight hours only, host stays with pod.',
+      verified_by: 'host-01',
+      verified_at: new Date('2026-10-20').toISOString(),
+      active: true,
+    });
+
+    // 11. v2.0 Bounty (Section 8.8, N17: group min 4, 07:00-18:30 IST)
+    this.bounties.set('bounty-01', {
+      id: 'bounty-01',
+      waypoint_id: 'wp-01',
+      title: 'Market colours',
+      description: 'As a group of 4+, find three things in the market that share one colour, then agree on a favourite.',
+      group_min: 4,
+      starts_at: '2026-11-10T10:00:00+05:30',
+      ends_at: '2026-11-10T12:00:00+05:30',
+      host_contact: '+91 98450 12345',
+      status: 'open',
+      created_at: new Date('2026-10-20').toISOString(),
+    });
+
+    // 12. v2.0 Taranga Events (Section 1.5, 8.7, N18: no countdown, calm card, after wave)
+    this.tarangaEvents.set('te-01', {
+      id: 'te-01',
+      title: 'Mysuru Heritage Walk & Filter Coffee',
+      blurb: 'A quiet morning walk exploring heritage stone arches followed by fresh coffee in Chamarajapuram.',
+      starts_at: '2026-12-05T07:30:00+05:30',
+      ends_at: '2026-12-05T09:30:00+05:30',
+      place_name: 'Chamarajapuram Arch',
+      capacity: 25,
+      status: 'published',
+      created_by: 'host-01',
+      created_at: new Date('2026-10-20').toISOString(),
+    });
+    this.tarangaEvents.set('te-02', {
+      id: 'te-02',
+      title: 'Open Board Game Evening',
+      blurb: 'Slow traditional games, warm tea, and conversation at a public community space.',
+      starts_at: '2026-12-12T16:00:00+05:30',
+      ends_at: '2026-12-12T18:30:00+05:30',
+      place_name: 'Gokulam Community Garden',
+      capacity: 30,
+      status: 'published',
+      created_by: 'host-01',
+      created_at: new Date('2026-10-20').toISOString(),
     });
   }
 
@@ -466,6 +706,144 @@ export class MemoryDatabase {
    */
   public getOwnLetters(authorId: string): Letter[] {
     return Array.from(this.letters.values()).filter((l) => l.author_id === authorId);
+  }
+
+  // ==========================================================================
+  // v2.0: Appreciations (Seen Cards - M14, Section 7.2 & 7.3)
+  // ==========================================================================
+
+  public canReadAppreciation(recipientId: string, apprec: Appreciation, currentTime: Date = new Date()): boolean {
+    if (apprec.recipient_id !== recipientId || apprec.status !== 'submitted') {
+      return false;
+    }
+    const meetup = this.meetups.get(apprec.meetup_id);
+    if (!meetup) return false;
+
+    const recipient = this.profiles.get(recipientId);
+    const letterHour = recipient?.letter_hour ?? 20;
+
+    // Delivery is recipient's next letter hour after meetup ended
+    const meetupEnd = new Date(meetup.ends_at);
+    const revealTime = calculateRevealTime(meetup.ends_at, meetup.ends_at, letterHour);
+    return currentTime.getTime() >= revealTime.getTime();
+  }
+
+  public getReceivedAppreciations(recipientId: string, currentTime: Date = new Date()): Appreciation[] {
+    return Array.from(this.appreciations.values()).filter((a) =>
+      this.canReadAppreciation(recipientId, a, currentTime)
+    );
+  }
+
+  public submitAppreciation(
+    authorId: string,
+    podId: string,
+    meetupId: string,
+    recipientId: string,
+    body: string
+  ): Appreciation {
+    if (authorId === recipientId) {
+      throw new Error('Cannot write a Seen card to yourself');
+    }
+    if (body.trim().length < 10 || body.trim().length > 200) {
+      throw new Error('Seen card must be between 10 and 200 characters');
+    }
+    // Check if already submitted for this meetup + author + recipient
+    const existing = Array.from(this.appreciations.values()).find(
+      (a) => a.meetup_id === meetupId && a.author_id === authorId && a.recipient_id === recipientId
+    );
+    if (existing) {
+      throw new Error('Appreciation already submitted for this member for this table');
+    }
+
+    const id = `apprec-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
+    const newApprec: Appreciation = {
+      id,
+      pod_id: podId,
+      meetup_id: meetupId,
+      author_id: authorId,
+      recipient_id: recipientId,
+      body: body.trim(),
+      status: 'submitted',
+      created_at: new Date().toISOString(),
+    };
+    this.appreciations.set(id, newApprec);
+    return newApprec;
+  }
+
+  // ==========================================================================
+  // v2.0: Taranga Events Funnel (M18, H10, Section 1.5, 7.2, N18)
+  // ==========================================================================
+
+  public canSeeEvents(userId: string): boolean {
+    const prof = this.profiles.get(userId);
+    if (prof?.role === 'host' || prof?.role === 'admin') return true;
+
+    // Must be in a pod that is closing or closed (N18)
+    const memberships = this.podMembers.filter((pm) => pm.user_id === userId && !pm.left_at);
+    return memberships.some((pm) => {
+      const pod = this.pods.get(pm.pod_id);
+      return pod?.status === 'closing' || pod?.status === 'closed';
+    });
+  }
+
+  public getPublishedEvents(userId: string): TarangaEvent[] {
+    if (!this.canSeeEvents(userId)) return [];
+    // Max 2 upcoming events (Section 1.5 & M18)
+    return Array.from(this.tarangaEvents.values())
+      .filter((e) => e.status === 'published')
+      .slice(0, 2);
+  }
+
+  public recordEventInterest(userId: string, eventId: string): EventInterest {
+    const key = `${eventId}_${userId}`;
+    const interest: EventInterest = {
+      event_id: eventId,
+      user_id: userId,
+      created_at: new Date().toISOString(),
+    };
+    this.eventInterests.set(key, interest);
+    return interest;
+  }
+
+  public recordEventAttendance(markedBy: string, userId: string, eventId: string): void {
+    const key = `${eventId}_${userId}`;
+    let interest = this.eventInterests.get(key);
+    if (!interest) {
+      interest = {
+        event_id: eventId,
+        user_id: userId,
+        created_at: new Date().toISOString(),
+      };
+    }
+    interest.attended_at = new Date().toISOString();
+    interest.marked_by = markedBy;
+    this.eventInterests.set(key, interest);
+  }
+
+  // ==========================================================================
+  // v2.0: Bounties & Quests (M16, Section 7.2, N17)
+  // ==========================================================================
+
+  public getOpenBounties(): Bounty[] {
+    return Array.from(this.bounties.values()).filter((b) => b.status === 'open');
+  }
+
+  public joinBounty(userId: string, bountyId: string): BountyJoin {
+    const bounty = this.bounties.get(bountyId);
+    if (!bounty || bounty.status !== 'open') {
+      throw new Error('Bounty is not open');
+    }
+    const alreadyJoined = this.bountyJoins.some((j) => j.bounty_id === bountyId && j.user_id === userId);
+    if (alreadyJoined) {
+      return this.bountyJoins.find((j) => j.bounty_id === bountyId && j.user_id === userId)!;
+    }
+    const join: BountyJoin = {
+      bounty_id: bountyId,
+      user_id: userId,
+      joined_at: new Date().toISOString(),
+    };
+    this.bountyJoins.push(join);
+    return join;
   }
 
   // ==========================================================================

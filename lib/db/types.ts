@@ -2,9 +2,9 @@ export type UserRole = 'member' | 'host' | 'admin';
 export type UserStatus = 'onboarding' | 'screened' | 'waitlisted' | 'in_pod' | 'completed' | 'withdrawn' | 'removed';
 export type PodStatus = 'forming' | 'letters' | 'tables' | 'closing' | 'closed' | 'cancelled';
 export type DepositStatus = 'none' | 'pending' | 'held' | 'refunded' | 'forfeited';
-export type ConsentPurpose = 'core_service' | 'safety_checkin' | 'whatsapp_contact' | 'content_photos';
+export type ConsentPurpose = 'core_service' | 'safety_checkin' | 'whatsapp_contact' | 'content_photos' | 'taranga_updates';
 export type ScreeningBand = 'none' | 'mild' | 'elevated';
-export type PromptKind = 'letter' | 'table' | 'stretch';
+export type PromptKind = 'letter' | 'table' | 'stretch' | 'peeve' | 'pivot' | 'favourite' | 'seen';
 export type LetterStatus = 'draft' | 'submitted' | 'published' | 'hidden';
 export type MeetupStatus = 'scheduled' | 'done' | 'cancelled';
 export type RsvpResponse = 'yes' | 'no' | 'maybe';
@@ -76,6 +76,8 @@ export interface Pod {
   capacity: number;
   arm: 'free' | 'deposit';
   deposit_inr: number;
+  opener_arm?: 'none' | 'peeve' | 'favourites';
+  wave_start?: string;
   host_id?: string;
   default_venue_id?: string;
   created_at: string;
@@ -124,6 +126,7 @@ export interface Meetup {
   ends_at: string;
   venue_id?: string;
   status: MeetupStatus;
+  low_turnout_flagged_at?: string;
 }
 
 export interface Rsvp {
@@ -222,4 +225,117 @@ export interface AuditLogRecord {
   entity?: string;
   entity_id?: string;
   created_at: string;
+}
+
+export interface Appreciation {
+  id: string;
+  pod_id: string;
+  meetup_id: string;
+  author_id: string;
+  recipient_id: string;
+  body: string;
+  status: 'submitted' | 'held' | 'hidden';
+  created_at: string;
+}
+
+export interface ClosingChoice {
+  user_id: string;
+  pod_id: string;
+  choice: 'keep' | 'community' | 'part';
+  created_at: string;
+}
+
+export interface WaveFeedback {
+  user_id: string;
+  pod_id: string;
+  connected_end?: number;
+  made_friend?: 'yes' | 'maybe' | 'no';
+  free_text?: string;
+  created_at: string;
+}
+
+export interface HostTask {
+  id: string;
+  host_id?: string;
+  pod_id?: string;
+  user_id?: string;
+  kind: 'reminder' | 'followup' | 'reschedule' | 'late' | 'withdrawal' | 'screening' | 'moderation' | 'safety';
+  body: string;
+  due_at?: string;
+  done_at?: string;
+  created_at: string;
+}
+
+export interface Game {
+  id: string;
+  name: string;
+  region?: string;
+  players_min?: number;
+  players_max?: number;
+  rules_summary: string;
+  source_note?: string;
+  verified: boolean;
+  verified_by?: string;
+  verified_at?: string;
+}
+
+export interface Waypoint {
+  id: string;
+  name: string;
+  area?: string;
+  is_public: boolean;
+  staffed: boolean;
+  host_attended: boolean;
+  safety_notes?: string;
+  verified_by?: string;
+  verified_at?: string;
+  active: boolean;
+}
+
+export interface Bounty {
+  id: string;
+  waypoint_id: string;
+  title: string;
+  description: string;
+  group_min: number;
+  starts_at: string;
+  ends_at: string;
+  host_contact: string;
+  status: 'draft' | 'open' | 'closed' | 'cancelled';
+  created_at: string;
+}
+
+export interface BountyJoin {
+  bounty_id: string;
+  user_id: string;
+  joined_at: string;
+}
+
+export interface PassportStamp {
+  pod_id: string;
+  waypoint_id: string;
+  stamped_at: string;
+  confirmed_by?: string;
+}
+
+export interface TarangaEvent {
+  id: string;
+  title: string;
+  blurb: string;
+  starts_at: string;
+  ends_at: string;
+  place_name: string;
+  capacity?: number;
+  signup_url?: string;
+  status: 'draft' | 'published' | 'closed';
+  created_by?: string;
+  created_at: string;
+}
+
+export interface EventInterest {
+  event_id: string;
+  user_id: string;
+  created_at: string;
+  attended_at?: string;
+  marked_by?: string;
 }

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Users, Sparkles, Shield, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Users, Sparkles, Shield, ArrowRight, CheckCircle2, AlertCircle, BarChart3 } from 'lucide-react';
 
 interface WaitlistMember {
   id: string;
@@ -76,24 +76,79 @@ export default function HostDashboardPage() {
         </p>
       </header>
 
-      {/* Quick Match Action */}
-      <div className="p-4 bg-paper-100 border border-paper-300 rounded-xl flex items-center justify-between gap-4">
-        <div>
-          <h2 className="text-sm font-semibold text-paper-900 flex items-center gap-1.5">
-            <Sparkles className="w-4 h-4 text-wave-600" />
-            <span>Smart Pod Matching (Section 6)</span>
-          </h2>
-          <p className="text-xs text-paper-800 pt-0.5">
-            Run greedy matching with hard constraints and plain-language explanations.
-          </p>
+      {/* Quick Match & Safety Actions */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="p-4 bg-paper-100 border border-paper-300 rounded-xl flex flex-col justify-between space-y-2">
+          <div>
+            <h2 className="text-sm font-semibold text-paper-900 flex items-center gap-1.5">
+              <Sparkles className="w-4 h-4 text-wave-600" />
+              <span>Smart Pod Matching</span>
+            </h2>
+            <p className="text-xs text-paper-800 pt-0.5">
+              Greedy matching with hard constraints and plain-language explanations.
+            </p>
+          </div>
+          <Link
+            href="/host/suggestions"
+            className="w-full py-2 bg-wave-600 hover:bg-wave-700 text-white rounded text-xs font-medium text-center transition-colors shadow-sm block"
+          >
+            Review Suggestions
+          </Link>
         </div>
-        <Link
-          href="/host/suggestions"
-          className="px-4 py-2 bg-wave-600 hover:bg-wave-700 text-white rounded-md text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1 shadow-sm"
-        >
-          <span>Review Suggestions</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </Link>
+
+        <div className="p-4 bg-paper-100 border border-paper-300 rounded-xl flex flex-col justify-between space-y-2">
+          <div>
+            <h2 className="text-sm font-semibold text-paper-900 flex items-center gap-1.5">
+              <Shield className="w-4 h-4 text-red-600" />
+              <span>H6 Safety Queue</span>
+            </h2>
+            <p className="text-xs text-paper-800 pt-0.5">
+              Triage and resolve incoming community safety reports (high severity prioritized).
+            </p>
+          </div>
+          <Link
+            href="/host/safety"
+            className="w-full py-2 bg-paper-200 hover:bg-paper-300 text-paper-900 rounded text-xs font-medium text-center transition-colors block"
+          >
+            Open Safety Queue
+          </Link>
+        </div>
+
+        <div className="p-4 bg-paper-100 border border-paper-300 rounded-xl flex flex-col justify-between space-y-2">
+          <div>
+            <h2 className="text-sm font-semibold text-paper-900 flex items-center gap-1.5">
+              <Users className="w-4 h-4 text-amber-600" />
+              <span>H7 Follow-ups</span>
+            </h2>
+            <p className="text-xs text-paper-800 pt-0.5">
+              Elevated check-in phone calls and gentle withdrawal check-ins.
+            </p>
+          </div>
+          <Link
+            href="/host/followups"
+            className="w-full py-2 bg-paper-200 hover:bg-paper-300 text-paper-900 rounded text-xs font-medium text-center transition-colors block"
+          >
+            View Follow-ups
+          </Link>
+        </div>
+
+        <div className="p-4 bg-paper-100 border border-paper-300 rounded-xl flex flex-col justify-between space-y-2">
+          <div>
+            <h2 className="text-sm font-semibold text-paper-900 flex items-center gap-1.5">
+              <BarChart3 className="w-4 h-4 text-wave-600" />
+              <span>H8 Pilot Metrics</span>
+            </h2>
+            <p className="text-xs text-paper-800 pt-0.5">
+              Show rate, second meeting rate, hours together, and feedback analytics.
+            </p>
+          </div>
+          <Link
+            href="/host/metrics"
+            className="w-full py-2 bg-paper-200 hover:bg-paper-300 text-paper-900 rounded text-xs font-medium text-center transition-colors block"
+          >
+            View Metrics
+          </Link>
+        </div>
       </div>
 
       {/* Active Pods Overview */}

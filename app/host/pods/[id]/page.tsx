@@ -208,9 +208,17 @@ export default function PodDetailPage() {
 
       {/* Meetups Timeline */}
       <section className="space-y-3 pt-2 border-t border-paper-200">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-paper-900">
-          Scheduled Meetups
-        </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-paper-900">
+            Scheduled Meetups
+          </h2>
+          <Link
+            href={`/host/pods/${podId}/meetups`}
+            className="text-xs text-wave-700 hover:text-wave-800 font-medium underline"
+          >
+            Manage / Schedule Meetups
+          </Link>
+        </div>
         <div className="space-y-2">
           {pod.meetups.length === 0 ? (
             <p className="text-xs text-muted-foreground">No meetups scheduled yet.</p>
@@ -227,9 +235,17 @@ export default function PodDetailPage() {
                     ({new Date(m.starts_at).toLocaleDateString()})
                   </span>
                 </div>
-                <span className="text-[11px] font-mono capitalize px-2 py-0.5 rounded bg-paper-200">
-                  {m.status}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-mono capitalize px-2 py-0.5 rounded bg-paper-200">
+                    {m.status}
+                  </span>
+                  <Link
+                    href={`/host/meetups/${m.id}/checkin`}
+                    className="px-2.5 py-1 bg-wave-600 hover:bg-wave-700 text-white rounded text-[11px] font-medium"
+                  >
+                    Check In
+                  </Link>
+                </div>
               </div>
             ))
           )}

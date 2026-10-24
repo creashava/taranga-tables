@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase } from '@/lib/db';
 import { z } from 'zod';
 
+export const dynamic = 'force-dynamic';
+
 const createPodSchema = z.object({
   name: z.string().min(2),
   arm: z.enum(['free', 'deposit']),

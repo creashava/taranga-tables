@@ -11,7 +11,12 @@
     "lint:banned": "node scripts/lint-banned-phrases.mjs",
     "lint:claims": "node scripts/lint-claims.mjs",
     "lint": "pnpm lint:banned && pnpm lint:claims",
-    "seed:demo": "node scripts/seed-demo.mjs"
+    "seed:demo": "node scripts/seed-demo.mjs",
+    "demo:reset": "node scripts/seed-demo.mjs",
+    "typecheck": "tsc --noEmit",
+    "verify": "tsc --noEmit && pnpm lint && pnpm test",
+    "db:migrate": "node scripts/supabase-migrate.mjs",
+    "db:seed": "node scripts/supabase-migrate.mjs --seed"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",

@@ -1,0 +1,12 @@
+{
+  "D1_deposit_forfeit_on_noshow": "mock_forfeit_terms_shown",
+  "D2_letter_gap_hours": 48,
+  "D3_two_hosts_at_table_1": false,
+  "D4_age_assurance_method": "self_declared_stub",
+  "D5_data_retention_days": 90,
+  "D6_mixed_pods_no_single_woman": true,
+  "D7_keep_the_table_host_kit": "placeholder_pdf",
+  "D8_real_waypoints_enabled": false,
+  "D9_checkin_clinical_review": "placeholder_pending_clinical_review",
+  "D10_kannada_translations_status": "draft_strings_pending_native_review"
+}
