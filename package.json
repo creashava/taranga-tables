@@ -17,7 +17,8 @@
     "verify": "tsc --noEmit && pnpm lint && pnpm test",
     "db:migrate": "node scripts/supabase-migrate.mjs",
     "db:seed": "node scripts/supabase-migrate.mjs --seed",
-    "capture:screens": "node scripts/capture-all-screens.mjs"
+    "capture:screens": "node scripts/capture-all-screens.mjs",
+    "test:e2e": "node scripts/run-e2e.mjs"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",
