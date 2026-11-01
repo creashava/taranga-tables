@@ -154,10 +154,17 @@ pnpm lint
    - `/pod/seen` -- M14 Write a Seen card (10-200 chars)
    - `/pod/quests` -- M16 Open bounties (group min 4, N17), passport stamps
    - `/pod/events` -- M18 Taranga Events (closing pod only, N18)
-   - `/host/pods/[id]/print` -- H3b A4 Letter Box Print View
+   - `/host/pods/[id]/print` -- H3b Katte Pilot Kit Printables Pack (5 Katte Rules, Opener Cards, A3 Banyan Hours Tracker, Letter Box slips, Table Cards, Stretch Cards, Relay Slips, Seen Cards, Keep-the-Katte slips, Host Help Card)
    - `/host/content` -- H9 Content Console (Prompts / Games / Waypoints / Bounties / Outbox)
    - `/host/events` -- H10 Events Console (create, track interest, mark attendance)
+   - `/host/safety` -- H6 Safety Queue with Katte Escalation Ladder and Discreet Signal ("Refill of water")
    - `GET /api/jobs/tick` -- Cron tick (idempotent, safe to call hourly)
+
+### Katte Pilot Kit v2.0 (Operational Ground Kit)
+Prepared specifically for the Taranga field team in Mysuru running the 4-week, 2-Katte pilot:
+- **Field Manual**: Complete instructions, 90-minute table run-sheets, and pass marks in [`/docs/KATTE_PILOT_KIT.md`](file:///c:/Users/Varun%20m/Desktop/pho/docs/KATTE_PILOT_KIT.md).
+- **Physical Printables Pack**: Ready-to-print sheets directly accessible via host pod details (`/host/pods/[id]/print`).
+- **Ritual Metrics**: Post-table feedback captures Looked-Forward (1–5) and unprompted ritual recall (Relay, Elder's Game, Banyan, Pod Project, Seen Cards, Opener Cards).
 
 ---
 
@@ -171,8 +178,11 @@ pnpm lint
 | Claims-discipline lint (pnpm lint:claims) | PASS |
 | Zero TypeScript errors (pnpm exec tsc --noEmit) | PASS |
 | Production build -- 41 routes (pnpm build) | PASS |
+| Katte Pilot Kit v2.0 Operational Manual (/docs/KATTE_PILOT_KIT.md) | PASS |
+| Complete Printables Pack (/host/pods/[id]/print) | PASS |
 | /docs/QA.md -- CCPA dark-pattern checklist | PASS |
 | /docs/RUNBOOK.md -- deploy, backup, breach, pilot-day | PASS |
 | /docs/DECISIONS.md -- D1-D10 behind flags | PASS |
 | /config/claims.json -- all research claims ID-tied | PASS |
 | N1-N18 enforced in code and tests | PASS |
+
