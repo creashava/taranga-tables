@@ -41,7 +41,7 @@ const SCREENS = [
   { id: 'm14_seen_cards', phase: 'p8', path: '/pod/seen', title: 'Seen Cards' },
   { id: 'm16_quests_passport', phase: 'p8', path: '/pod/quests', title: 'Quests & Passport' },
   { id: 'm18_taranga_events', phase: 'p8', path: '/pod/events', title: 'From Taranga Events' },
-  { id: 'h3b_letter_box_print', phase: 'p8', path: '/host/pods/pod-a/print', title: 'Letter Box Print' },
+  { id: 'h3b_letter_box_print', phase: 'p8', path: '/host/pods/pod-a/print', title: 'Katte Pilot Kit Printables' },
   { id: 'h9_content_console', phase: 'p8', path: '/host/content', title: 'Content Console' },
   { id: 'h10_events_console', phase: 'p8', path: '/host/events', title: 'Events Console' },
 ];
