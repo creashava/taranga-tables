@@ -13,6 +13,8 @@ export default function ClosingPage() {
   const [feltSafe, setFeltSafe] = useState<number>(5);
   const [feltIncluded, setFeltIncluded] = useState<number>(5);
   const [wouldReturn, setWouldReturn] = useState<boolean>(true);
+  const [lookedForward, setLookedForward] = useState<number>(4);
+  const [rememberedRituals, setRememberedRituals] = useState<string[]>([]);
   const [freeText, setFreeText] = useState('');
   const [shareWithHost, setShareWithHost] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -55,6 +57,8 @@ export default function ClosingPage() {
           feltSafe,
           feltIncluded,
           wouldReturn,
+          lookedForward,
+          rememberedRituals,
           freeText: freeText.trim() || undefined,
           shareWithHost,
         }),
@@ -182,6 +186,29 @@ export default function ClosingPage() {
           </div>
         ) : (
           <form onSubmit={handleSubmitFeedback} className="space-y-4 text-xs">
+            {/* Looked forward (Katte Pilot Kit v2.0 Section 12.2) */}
+            <div>
+              <label className="block font-medium text-paper-900 mb-1.5">
+                How much did you look forward to the tables? (1 to 5)
+              </label>
+              <div className="flex gap-2">
+                {[1, 2, 3, 4, 5].map((val) => (
+                  <button
+                    key={val}
+                    type="button"
+                    onClick={() => setLookedForward(val)}
+                    className={`flex-1 py-1.5 rounded font-medium border text-center transition-colors ${
+                      lookedForward === val
+                        ? 'bg-wave-600 text-white border-wave-600'
+                        : 'bg-paper-50 text-paper-800 border-paper-300 hover:bg-paper-200'
+                    }`}
+                  >
+                    {val}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Felt safe */}
             <div>
               <label className="block font-medium text-paper-900 mb-1.5">
@@ -252,6 +279,42 @@ export default function ClosingPage() {
                   />
                   <span>No / Undecided</span>
                 </label>
+              </div>
+            </div>
+
+            {/* Remembered rituals (Katte Pilot Kit v2.0 Section 12.2) */}
+            <div>
+              <label className="block font-medium text-paper-900 mb-1.5">
+                Which rituals will you remember most?
+              </label>
+              <div className="grid grid-cols-2 gap-2 text-paper-800">
+                {[
+                  { id: 'relay', label: 'The Relay' },
+                  { id: 'elders_game', label: "The Elder's Game" },
+                  { id: 'banyan', label: 'Planting the Banyan' },
+                  { id: 'pod_project', label: 'The Pod Project' },
+                  { id: 'seen_cards', label: 'Seen Cards' },
+                  { id: 'opener', label: 'Opener Cards' },
+                ].map((ritual) => {
+                  const isChecked = rememberedRituals.includes(ritual.id);
+                  return (
+                    <label key={ritual.id} className="flex items-center gap-1.5 cursor-pointer bg-paper-50 p-2 rounded border border-paper-200">
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => {
+                          if (isChecked) {
+                            setRememberedRituals(rememberedRituals.filter((r) => r !== ritual.id));
+                          } else {
+                            setRememberedRituals([...rememberedRituals, ritual.id]);
+                          }
+                        }}
+                        className="rounded border-paper-300 text-wave-600 focus:ring-wave-500"
+                      />
+                      <span>{ritual.label}</span>
+                    </label>
+                  );
+                })}
               </div>
             </div>
 

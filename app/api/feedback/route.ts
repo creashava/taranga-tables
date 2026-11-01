@@ -8,6 +8,8 @@ const feedbackSchema = z.object({
   feltSafe: z.number().int().min(1).max(5),
   feltIncluded: z.number().int().min(1).max(5),
   wouldReturn: z.boolean(),
+  lookedForward: z.number().int().min(1).max(5).optional(),
+  rememberedRituals: z.array(z.string()).optional(),
   freeText: z.string().max(1000).optional(),
   shareWithHost: z.boolean().default(false),
 });
@@ -28,7 +30,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { userId, meetupId, feltSafe, feltIncluded, wouldReturn, freeText, shareWithHost } = parsed.data;
+    const { userId, meetupId, feltSafe, feltIncluded, wouldReturn, lookedForward, rememberedRituals, freeText, shareWithHost } = parsed.data;
     const db = getDatabase();
 
     const meetup = db.meetups.get(meetupId);
@@ -44,6 +46,8 @@ export async function POST(req: NextRequest) {
       felt_safe: feltSafe,
       felt_included: feltIncluded,
       would_return: wouldReturn,
+      looked_forward: lookedForward,
+      remembered_rituals: rememberedRituals,
       free_text: freeText,
       share_with_host: shareWithHost,
       created_at: new Date().toISOString(),
@@ -54,6 +58,8 @@ export async function POST(req: NextRequest) {
       felt_safe: feltSafe,
       felt_included: feltIncluded,
       would_return: wouldReturn,
+      looked_forward: lookedForward,
+      remembered_rituals: rememberedRituals,
       share_with_host: shareWithHost,
     });
 

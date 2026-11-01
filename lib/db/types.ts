@@ -192,6 +192,8 @@ export interface Feedback {
   felt_safe: number;
   felt_included: number;
   would_return: boolean;
+  looked_forward?: number;
+  remembered_rituals?: string[];
   free_text?: string;
   share_with_host: boolean;
   created_at: string;
