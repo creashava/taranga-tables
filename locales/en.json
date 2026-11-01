@@ -19,5 +19,16 @@
   "helpline": {
     "tele_manas": "Tele-MANAS (14416) provides 24/7 free mental health support",
     "emergency": "In an emergency, dial 112"
+  },
+  "katte": {
+    "discreet_signal": "Ask a host for a refill of water",
+    "inclusion_promise": "This katte is for everyone, whatever your gender, background, language or age. Every game and card is optional.",
+    "rules": [
+      "Everyone gets a seat.",
+      "Grumble gently: about things and situations, never about people.",
+      "Newcomers and elders both talk, and both listen.",
+      "What is said on the katte stays on the katte.",
+      "Anyone can walk away, and nobody walks away alone."
+    ]
   }
 }
