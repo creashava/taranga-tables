@@ -118,18 +118,48 @@ export default function PodDetailPage() {
         </Link>
         <div className="flex items-center justify-between">
           <h1 className="font-serif text-2xl font-bold text-paper-900">{pod.name}</h1>
-          <span
-            className={`text-xs font-mono uppercase px-2 py-0.5 rounded ${
-              pod.arm === 'deposit' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'
-            }`}
-          >
-            {pod.arm === 'deposit' ? `Deposit ₹${pod.deposit_inr}` : 'Free Arm'}
-          </span>
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/host/pods/${podId}/print`}
+              className="px-3 py-1 bg-paper-200 hover:bg-paper-300 border border-paper-300 text-paper-900 rounded text-xs font-medium inline-flex items-center gap-1.5 transition-colors"
+            >
+              <span>🖨️ Print Katte Kit</span>
+            </Link>
+            <span
+              className={`text-xs font-mono uppercase px-2 py-0.5 rounded ${
+                pod.arm === 'deposit' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'
+              }`}
+            >
+              {pod.arm === 'deposit' ? `Deposit ₹${pod.deposit_inr}` : 'Free Arm'}
+            </span>
+          </div>
         </div>
         <p className="text-xs text-paper-800">
-          Status: <strong className="capitalize">{pod.status}</strong> • Mysuru Wave 1
+          Status: <strong className="capitalize">{pod.status}</strong> • Katte Pilot v2.0 (Mysuru)
         </p>
       </header>
+
+      {/* Katte Rituals & Host Runbook Quick Summary */}
+      <section className="p-3.5 bg-paper-100 border border-paper-300 rounded-lg space-y-2 text-xs">
+        <div className="flex items-center justify-between">
+          <span className="font-semibold text-paper-900">Katte Pilot Kit v2.0 Checklist</span>
+          <span className="text-[11px] text-muted-foreground">Mysuru 4-Week Wave</span>
+        </div>
+        <div className="grid grid-cols-2 gap-2 text-[11px] text-paper-800">
+          <div className="p-2 bg-paper-50 rounded border border-paper-200">
+            <strong>Table 1 (Take Your Seat):</strong> 5 Katte Rules, Opener Cards, Plant Banyan, Letter Box.
+          </div>
+          <div className="p-2 bg-paper-50 rounded border border-paper-200">
+            <strong>Table 2 (Elder's Game):</strong> Traditional Karnataka game, Group Reflection, Relay lines.
+          </div>
+          <div className="p-2 bg-paper-50 rounded border border-paper-200">
+            <strong>Table 3 (Keep the Katte):</strong> Relay swap, Seen Cards, Pod Project, Graduation slip.
+          </div>
+          <div className="p-2 bg-paper-50 rounded border border-paper-200">
+            <strong>Safety &amp; Discreet Signal:</strong> <em>"Refill of water"</em> = immediate gentle host check-in.
+          </div>
+        </div>
+      </section>
 
       {error && (
         <div className="p-3 bg-amber-50 border border-amber-200 text-amber-900 rounded-md text-xs">
