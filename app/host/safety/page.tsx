@@ -214,6 +214,37 @@ export default function SafetyQueuePage() {
           </div>
         </div>
       )}
+      {/* Katte Pilot Kit v2.0 Operational Protocol Box */}
+      <div className="p-4 bg-paper-100 border border-paper-300 rounded-xl space-y-3">
+        <h3 className="font-serif text-sm font-bold text-paper-900 flex items-center gap-1.5">
+          <ShieldAlert className="w-4 h-4 text-wave-700" />
+          Katte Safety Protocols &amp; Escalation Ladder
+        </h3>
+        <p className="text-xs text-paper-700 leading-relaxed">
+          <strong>Discreet Signal:</strong> If a member says <em>"Ask a host for a refill of water"</em>, treat it as an immediate directive to step in gently and offer a discreet exit.
+        </p>
+
+        <div className="space-y-2 text-xs">
+          <div className="p-2.5 bg-paper-50 border border-paper-200 rounded">
+            <span className="font-semibold text-paper-900">Level 1: Minor Discomfort</span>
+            <p className="text-[11px] text-paper-700 mt-0.5">Adjust activity, offer an immediate pass, check in privately without pressure.</p>
+          </div>
+          <div className="p-2.5 bg-amber-50/60 border border-amber-200 rounded">
+            <span className="font-semibold text-amber-900">Level 2: Conduct Concern</span>
+            <p className="text-[11px] text-amber-800 mt-0.5">Give a private, clear warning and log it. If repeated, kindly ask the person to step away.</p>
+          </div>
+          <div className="p-2.5 bg-red-50/60 border border-red-200 rounded">
+            <span className="font-semibold text-red-900">Level 3: Serious / Distress</span>
+            <p className="text-[11px] text-red-800 mt-0.5">Keep the person safe and never alone. Call 112 if in danger, share Tele-MANAS (14416), and alert Safety Lead.</p>
+          </div>
+        </div>
+
+        <div className="text-[11px] text-muted-foreground border-t border-paper-200 pt-2 flex flex-wrap gap-x-4 gap-y-1">
+          <span>Emergency: <strong>112</strong></span>
+          <span>Tele-MANAS: <strong>14416</strong></span>
+          <span>Women's Helpline: <strong>181</strong></span>
+        </div>
+      </div>
     </div>
   );
 }

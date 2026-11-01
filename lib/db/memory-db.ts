@@ -165,63 +165,127 @@ export class MemoryDatabase {
       active: true,
     });
 
-    this.prompts.set('p-t1', {
-      id: 'p-t1',
-      kind: 'table',
-      level: 1,
-      body_en: "What's the best thing you ate this month?",
-      body_kn: 'ಈ ತಿಂಗಳು ನೀವು ತಿಂದ ಅತ್ಯುತ್ತಮ ಆಹಾರ ಯಾವುದು?',
-      active: true,
-    });
-    this.prompts.set('p-t2', {
-      id: 'p-t2',
-      kind: 'table',
-      level: 2,
-      body_en: "What's something you changed your mind about recently?",
-      body_kn: 'ಇತ್ತೀಚೆಗೆ ನೀವು ನಿಮ್ಮ ಮನಸ್ಸನ್ನು ಬದಲಾಯಿಸಿಕೊಂಡ ಒಂದು ವಿಷಯವೇನು?',
-      active: true,
-    });
-    this.prompts.set('p-t3', {
-      id: 'p-t3',
-      kind: 'table',
-      level: 3,
-      body_en: 'When do you feel most like yourself?',
-      body_kn: 'ನೀವು ಯಾವಾಗ ನಿಮ್ಮಂತೆಯೇ ಹೆಚ್ಚು ಇರುತ್ತೀರಿ?',
-      active: true,
+    // 3. Table Cards (Section 8.3 of Katte Pilot Kit: Light, Real, Deep)
+    const tableCardsLight = [
+      "What's the best thing you ate this month?",
+      "What's your favourite way to spend a free evening?",
+      "What's a skill you'd love to learn?",
+      "What was your first phone like?",
+      "What's a place you want to visit?",
+      "What did you want to be as a child?",
+    ];
+    tableCardsLight.forEach((text, i) => {
+      this.prompts.set(`p-t1-${i + 1}`, {
+        id: i === 0 ? 'p-t1' : `p-t1-${i + 1}`,
+        kind: 'table',
+        level: 1,
+        body_en: text,
+        body_kn: i === 0 ? 'ಈ ತಿಂಗಳು ನೀವು ತಿಂದ ಅತ್ಯುತ್ತಮ ಆಹಾರ ಯಾವುದು?' : undefined,
+        active: true,
+      });
     });
 
-    this.prompts.set('p-s1', {
-      id: 'p-s1',
-      kind: 'stretch',
-      level: 1,
-      body_en: 'Tell one person at the next table something you liked about their letter.',
-      body_kn: 'ಮುಂದಿನ ಮೇಜಿನಲ್ಲಿರುವ ಒಬ್ಬ ವ್ಯಕ್ತಿಗೆ ಅವರ ಪತ್ರದಲ್ಲಿ ನಿಮಗೆ ಇಷ್ಟವಾದ ವಿಷಯ ತಿಳಿಸಿ.',
-      active: true,
-    });
-    this.prompts.set('p-s2', {
-      id: 'p-s2',
-      kind: 'stretch',
-      level: 2,
-      body_en: "Ask someone a question you'd normally skip.",
-      body_kn: 'ನೀವು ಸಾಮಾನ್ಯವಾಗಿ ಕೇಳಲು ಹಿಂದೇಟು ಹಾಕುವ ಪ್ರಶ್ನೆಯನ್ನು ಕೇಳಿ.',
-      active: true,
-    });
-    this.prompts.set('p-s3', {
-      id: 'p-s3',
-      kind: 'stretch',
-      level: 3,
-      body_en: "Share one thing you're nervous about right now.",
-      body_kn: 'ಈ ಸಮಯದಲ್ಲಿ ನಿಮ್ಮನ್ನು ಆತಂಕಕ್ಕೊಳಪಡಿಸುವ ಒಂದು ವಿಷಯವನ್ನು ಹಂಚಿಕೊಳ್ಳಿ.',
-      active: true,
+    const tableCardsReal = [
+      "What's something you changed your mind about recently?",
+      "What's something you're proud of that nobody asked about?",
+      "What does a good day look like for you now?",
+      "Who do you call when something good happens?",
+      "What's something you're learning about yourself?",
+      "What's a risk you're glad you took?",
+    ];
+    tableCardsReal.forEach((text, i) => {
+      this.prompts.set(`p-t2-${i + 1}`, {
+        id: i === 0 ? 'p-t2' : `p-t2-${i + 1}`,
+        kind: 'table',
+        level: 2,
+        body_en: text,
+        body_kn: i === 0 ? 'ಇತ್ತೀಚೆಗೆ ನೀವು ನಿಮ್ಮ ಮನಸ್ಸನ್ನು ಬದಲಾಯಿಸಿಕೊಂಡ ಒಂದು ವಿಷಯವೇನು?' : undefined,
+        active: true,
+      });
     });
 
-    // 3b. v2.0 Prompts: Peeve, Pivot, Favourite, Seen (Section 8.8)
+    const tableCardsDeep = [
+      "When do you feel most like yourself?",
+      "What do you wish people understood about you sooner?",
+      "What are you looking forward to, even slightly?",
+      "What does belonging feel like to you?",
+      "What would you tell yourself a year ago?",
+      "What's something you're still figuring out?",
+    ];
+    tableCardsDeep.forEach((text, i) => {
+      this.prompts.set(`p-t3-${i + 1}`, {
+        id: i === 0 ? 'p-t3' : `p-t3-${i + 1}`,
+        kind: 'table',
+        level: 3,
+        body_en: text,
+        body_kn: i === 0 ? 'ನೀವು ಯಾವಾಗ ನಿಮ್ಮಂತೆಯೇ ಹೆಚ್ಚು ಇರುತ್ತೀರಿ?' : undefined,
+        active: true,
+      });
+    });
+
+    // 3a. Stretch Cards (Section 8.4 of Katte Pilot Kit: Levels 1, 2, 3)
+    const stretchL1 = [
+      "Tell someone at the table one thing you liked in their letter.",
+      "Ask someone the story behind their name.",
+      "Ask someone what they're looking forward to this week.",
+    ];
+    stretchL1.forEach((text, i) => {
+      this.prompts.set(`p-s1-${i + 1}`, {
+        id: i === 0 ? 'p-s1' : `p-s1-${i + 1}`,
+        kind: 'stretch',
+        level: 1,
+        body_en: text,
+        body_kn: i === 0 ? 'ಮುಂದಿನ ಮೇಜಿನಲ್ಲಿರುವ ಒಬ್ಬ ವ್ಯಕ್ತಿಗೆ ಅವರ ಪತ್ರದಲ್ಲಿ ನಿಮಗೆ ಇಷ್ಟವಾದ ವಿಷಯ ತಿಳಿಸಿ.' : undefined,
+        active: true,
+      });
+    });
+
+    const stretchL2 = [
+      "Ask someone a question you'd normally skip.",
+      "Share a small story that embarrassed you once and makes you laugh now.",
+      "Teach someone something in five minutes.",
+    ];
+    stretchL2.forEach((text, i) => {
+      this.prompts.set(`p-s2-${i + 1}`, {
+        id: i === 0 ? 'p-s2' : `p-s2-${i + 1}`,
+        kind: 'stretch',
+        level: 2,
+        body_en: text,
+        body_kn: i === 0 ? 'ನೀವು ಸಾಮಾನ್ಯವಾಗಿ ಕೇಳಲು ಹಿಂದೇಟು ಹಾಕುವ ಪ್ರಶ್ನೆಯನ್ನು ಕೇಳಿ.' : undefined,
+        active: true,
+      });
+    });
+
+    const stretchL3 = [
+      "Share one thing you're nervous about right now.",
+      "Tell the Katte something you rarely say out loud.",
+      "Ask the Katte for one piece of advice.",
+    ];
+    stretchL3.forEach((text, i) => {
+      this.prompts.set(`p-s3-${i + 1}`, {
+        id: i === 0 ? 'p-s3' : `p-s3-${i + 1}`,
+        kind: 'stretch',
+        level: 3,
+        body_en: text,
+        body_kn: i === 0 ? 'ಈ ಸಮಯದಲ್ಲಿ ನಿಮ್ಮನ್ನು ಆತಂಕಕ್ಕೊಳಪಡಿಸುವ ಒಂದು ವಿಷಯವನ್ನು ಹಂಚಿಕೊಳ್ಳಿ.' : undefined,
+        active: true,
+      });
+    });
+
+    // 3b. v2.0 Prompts: 12 Peeve Cards, Pivot, 12 Favourite Cards, Seen (Section 8 of Katte Pilot Kit)
     const peeves = [
       'People who clap when the plane lands.',
       'Group chats that explode at 2 am.',
       'Slow Wi-Fi at a cafe that advertises Wi-Fi.',
       'Meetings that could have been a message.',
       'Songs that start at the wrong moment.',
+      'Phone batteries that die at 20 percent.',
+      'Lifts that stop at every single floor.',
+      'Recipes that say "season to taste" and nothing else.',
+      'Saying "we should meet soon" and never meeting.',
+      'Reading a message ten times before replying.',
+      'Traffic signals that turn red just as you arrive.',
+      'Alarms you set for tomorrow and forget about today.',
     ];
     peeves.forEach((text, i) => {
       this.prompts.set(`p-pv${i + 1}`, {
@@ -245,6 +309,15 @@ export class MemoryDatabase {
       'A snack you’d recommend from a Mysuru street stall.',
       'A song you never skip.',
       'A film you can watch again and again.',
+      'A place in Mysuru you’d show a visitor.',
+      'A smell that reminds you of home.',
+      'A game you loved as a child.',
+      'Your favourite time of day.',
+      'A meal someone made for you that you still remember.',
+      'A book or story that stayed with you.',
+      'A small thing that always cheers you up.',
+      'A festival memory you like.',
+      'A teacher or elder who taught you something.',
     ];
     favourites.forEach((text, i) => {
       this.prompts.set(`p-fv${i + 1}`, {
@@ -260,7 +333,7 @@ export class MemoryDatabase {
       id: 'p-sn1',
       kind: 'seen',
       level: 1,
-      body_en: 'Say one specific thing someone did or said that you liked.',
+      body_en: 'One specific thing you said or did that I liked.',
       body_kn: 'ಇನ್ನೊಬ್ಬ ವ್ಯಕ್ತಿ ಮಾಡಿದ ಅಥವಾ ಹೇಳಿದ ನಿಮಗೆ ಇಷ್ಟವಾದ ಒಂದು ನಿರ್ದಿಷ್ಟ ವಿಷಯವನ್ನು ತಿಳಿಸಿ.',
       active: true,
     });

@@ -32,6 +32,27 @@
     "tableCadence": "weekly",
     "defaultLetterHour": 20,
     "retentionDays": 90,
-    "minimumConfirmedTableRsvps": 4
+    "minimumConfirmedTableRsvps": 4,
+    "podOrKatteTerm": "Katte",
+    "discreetSignal": "Ask a host for a refill of water",
+    "katteRules": [
+      "Everyone gets a seat.",
+      "Grumble gently: about things and situations, never about people.",
+      "Newcomers and elders both talk, and both listen.",
+      "What is said on the katte stays on the katte.",
+      "Anyone can walk away, and nobody walks away alone."
+    ],
+    "banyanMilestones": [
+      { "hours": 0, "stage": "Seed" },
+      { "hours": 1.5, "stage": "Sapling" },
+      { "hours": 4.5, "stage": "Young tree" },
+      { "hours": 10, "stage": "Banyan" },
+      { "hours": 25, "stage": "Old banyan" }
+    ],
+    "helplines": {
+      "emergency": "112",
+      "telemanas": "14416",
+      "womensHelpline": "181"
+    }
   }
 }
