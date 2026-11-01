@@ -250,5 +250,27 @@ describe('P8 Phase: v2.0 Entities & Logic', () => {
     it('canSeeEvents returns true for usr-closing in closing pod', () => {
       expect(db.canSeeEvents('usr-closing')).toBe(true);
     });
+
+    it('executes /api/jobs/tick endpoint idempotently', async () => {
+      const { POST: tickHandler } = await import('../app/api/jobs/tick/route');
+      const req = new Request('http://localhost:3000/api/jobs/tick', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer dev_cron_secret',
+        },
+      });
+
+      const res = await tickHandler(req);
+      expect(res.status).toBe(200);
+      const data = await res.json();
+      expect(data.ok).toBe(true);
+      expect(data.executed_at).toBeDefined();
+
+      // Second call (idempotency check)
+      const res2 = await tickHandler(req);
+      expect(res2.status).toBe(200);
+      const data2 = await res2.json();
+      expect(data2.ok).toBe(true);
+    });
   });
 });
